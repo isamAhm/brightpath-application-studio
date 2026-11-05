@@ -80,7 +80,7 @@ function ProfileStep() {
       <Card><CardHeader><CardTitle>Summary & links</CardTitle></CardHeader><CardContent className="space-y-4">
         <Field label="Summary"><Textarea rows={4} value={p.summary} onChange={(e) => set("summary", e.target.value)} /></Field>
         {(["linkedin", "github", "portfolio"] as const).map((k) => (
-          <Field key={k} label={k[0].toUpperCase() + k.slice(1)}><Input value={p.links[k]} onChange={(e) => set("links", { ...p.links, [k]: e.target.value })} /></Field>
+          <Field key={k} label={k.charAt(0).toUpperCase() + k.slice(1)}><Input value={p.links[k]} onChange={(e) => set("links", { ...p.links, [k]: e.target.value })} /></Field>
         ))}
       </CardContent></Card>
       <Card className="lg:col-span-2"><CardHeader className="flex-row items-center justify-between"><CardTitle>Experience</CardTitle>
@@ -128,7 +128,7 @@ function PrefsStep() {
         })}</div>
       </Field>
       <Field label={`Salary range: $${pr.salaryMin.toLocaleString()} – $${pr.salaryMax.toLocaleString()}`}>
-        <Slider className="pt-3" min={0} max={200000} step={5000} value={[pr.salaryMin, pr.salaryMax]} onValueChange={([a, b]) => setPreferences({ ...pr, salaryMin: a, salaryMax: b })} />
+        <Slider className="pt-3" min={0} max={200000} step={5000} value={[pr.salaryMin, pr.salaryMax]} onValueChange={([a, b]) => setPreferences({ ...pr, salaryMin: a ?? 0, salaryMax: b ?? 0 })} />
       </Field>
       <Field label="Excluded keywords"><TagInput value={pr.excludedKeywords} onChange={(v) => setPreferences({ ...pr, excludedKeywords: v })} /></Field>
     </CardContent></Card>
