@@ -43,7 +43,7 @@ ${body}
 
 [[In my current role at ${profile.experience[0]?.company ?? "my company"}, ${profile.experience[0]?.description.charAt(0).toLowerCase()}${profile.experience[0]?.description.slice(1) ?? ""}]] I'd bring the same ownership to ${job.company}.
 
-[[I'm particularly drawn to ${job.description.split(".")[0].toLowerCase()}.]]
+[[I'm particularly drawn to ${(job.description.split(".")[0] ?? "").toLowerCase()}.]]
 
 Thank you for your consideration.
 

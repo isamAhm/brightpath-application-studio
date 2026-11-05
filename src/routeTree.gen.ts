@@ -10,14 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BillingRouteImport } from './routes/billing'
 import { Route as JobsRouteImport } from './routes/jobs'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as TrackerRouteImport } from './routes/tracker'
+import { Route as PrepareJobIdRouteImport } from './routes/prepare/$jobId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BillingRoute = BillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JobsRoute = JobsRouteImport.update({
@@ -40,43 +54,97 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrackerRoute = TrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrepareJobIdRoute = PrepareJobIdRouteImport.update({
+  id: '/prepare/$jobId',
+  path: '/prepare/$jobId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/billing': typeof BillingRoute
   '/jobs': typeof JobsRoute
   '/onboarding': typeof OnboardingRoute
   '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
+  '/tracker': typeof TrackerRoute
+  '/prepare/$jobId': typeof PrepareJobIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/billing': typeof BillingRoute
   '/jobs': typeof JobsRoute
   '/onboarding': typeof OnboardingRoute
   '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
+  '/tracker': typeof TrackerRoute
+  '/prepare/$jobId': typeof PrepareJobIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/billing': typeof BillingRoute
   '/jobs': typeof JobsRoute
   '/onboarding': typeof OnboardingRoute
   '/signin': typeof SigninRoute
   '/signup': typeof SignupRoute
+  '/tracker': typeof TrackerRoute
+  '/prepare/$jobId': typeof PrepareJobIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/jobs' | '/onboarding' | '/signin' | '/signup'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/billing'
+    | '/jobs'
+    | '/onboarding'
+    | '/signin'
+    | '/signup'
+    | '/tracker'
+    | '/prepare/$jobId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/jobs' | '/onboarding' | '/signin' | '/signup'
-  id: '__root__' | '/' | '/jobs' | '/onboarding' | '/signin' | '/signup'
+  to:
+    | '/'
+    | '/admin'
+    | '/billing'
+    | '/jobs'
+    | '/onboarding'
+    | '/signin'
+    | '/signup'
+    | '/tracker'
+    | '/prepare/$jobId'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/billing'
+    | '/jobs'
+    | '/onboarding'
+    | '/signin'
+    | '/signup'
+    | '/tracker'
+    | '/prepare/$jobId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  BillingRoute: typeof BillingRoute
   JobsRoute: typeof JobsRoute
   OnboardingRoute: typeof OnboardingRoute
   SigninRoute: typeof SigninRoute
   SignupRoute: typeof SignupRoute
+  TrackerRoute: typeof TrackerRoute
+  PrepareJobIdRoute: typeof PrepareJobIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -86,6 +154,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/billing': {
+      id: '/billing'
+      path: '/billing'
+      fullPath: '/billing'
+      preLoaderRoute: typeof BillingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/jobs': {
@@ -116,15 +198,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tracker': {
+      id: '/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof TrackerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prepare/$jobId': {
+      id: '/prepare/$jobId'
+      path: '/prepare/$jobId'
+      fullPath: '/prepare/$jobId'
+      preLoaderRoute: typeof PrepareJobIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  BillingRoute: BillingRoute,
   JobsRoute: JobsRoute,
   OnboardingRoute: OnboardingRoute,
   SigninRoute: SigninRoute,
   SignupRoute: SignupRoute,
+  TrackerRoute: TrackerRoute,
+  PrepareJobIdRoute: PrepareJobIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
